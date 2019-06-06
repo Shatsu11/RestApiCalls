@@ -4,7 +4,8 @@
 //TODO: Cała klasa do przemyślenia i przepisania. 
 public with sharing class R2G_RestHandler {
 
-    //Dlaczego static? Wszystkie metody masz statyczne i przekrzucasz w paramterach wartości. Lepiej jest zainicjować stan i w metodach prywatnych z nich koysrzystać. Dlaczego wsyztko public?  
+    //Dlaczego static? Wszystkie metody masz statyczne i przekrzucasz w paramterach wartości. Lepiej jest zainicjować stan i w metodach prywatnych z nich koysrzystać. Generalnie statickki są be i nie zaakceptuje tego rozwiązania tak długo jak będą w tej kalsie static
+    //Dlaczego wszystko public?  
     public static HttpRequest getRequest(String method, String csEndpoint, String csCredentials,
             String endpointParams, String requestBody) {
         HttpRequest request = new HttpRequest();
