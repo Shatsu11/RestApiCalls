@@ -1,9 +1,10 @@
 /**
  * Created by BRITENET on 04.06.2019.
  */
-
+//TODO: Cała klasa do przemyślenia i przepisania. 
 public with sharing class R2G_RestHandler {
 
+    //Dlaczego static? Wszystkie metody masz statyczne i przekrzucasz w paramterach wartości. Lepiej jest zainicjować stan i w metodach prywatnych z nich koysrzystać. Dlaczego wsyztko public?  
     public static HttpRequest getRequest(String method, String csEndpoint, String csCredentials,
             String endpointParams, String requestBody) {
         HttpRequest request = new HttpRequest();
@@ -56,6 +57,7 @@ public with sharing class R2G_RestHandler {
     public static String updateAccessToken(String csCredentials) {
         R2G_LoginResponseBodyWrapper loginResponse = getExternalServiceAccessToken(csCredentials);
         String token = 'Bearer ' + loginResponse.access_token;
+        //TODO: zmieniłbym nazwę na car-token czy coś ... i przerzucił ją do CS, a nie zahardcodowaną
         Cache.Session.put('token', token, 28800);
         return (String) Cache.Session.get('token');
     }
@@ -79,6 +81,7 @@ public with sharing class R2G_RestHandler {
         return response.getBody();
     }
 
+    //Nie lpeije zro
     public static String buildLoginCredentialsUri(ExternalServiceOAuth2Credentials__c externalCredentials) {
         return 'grant_type=' + externalCredentials.grant_type__c +
                 '&client_id=' + externalCredentials.client_id__c +
@@ -87,6 +90,7 @@ public with sharing class R2G_RestHandler {
                 '&password=' + externalCredentials.password__c;
     }
 
+// dlaczego tworzysz jsona w taki sposób? Nie lepiej wraper i JSON.seriallize? 
     public static String buildPUTRequestBody(R2G_Utils.R2G_CarWrapper selectedCarObject) {
         return '{"car":{'
                 + '"brand":"' + selectedCarObject.car.Brand__c
